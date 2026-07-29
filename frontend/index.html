@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        LOTERIAS MATRIX PLATFORM
+    </title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <h1>
+                LOTERIAS<br>MATRIX
+            </h1>
+
+            <span>
+                Platform v1.3
+            </span>
+
+        </div>
+
+
+        <nav>
+
+            <ul>
+
+                <li class="active">
+                    🏠 Dashboard
+                </li>
+
+                <li>
+                    🎯 Gerador
+                </li>
+
+                <li>
+                    📊 Estatísticas
+                </li>
+
+                <li>
+                    🧠 IA Loterias
+                </li>
+
+                <li>
+                    📝 Histórico
+                </li>
+
+                <li>
+                    👤 Usuários
+                </li>
+
+                <li>
+                    📄 Relatórios
+                </li>
+
+                <li>
+                    ⚙ Configurações
+                </li>
+
+            </ul>
+
+        </nav>
+
+
+    </aside>
+
+
+
+    <main class="content">
+
+
+        <header class="topbar">
+
+
+            <div>
+
+                <h2>
+                    LOTERIAS MATRIX PLATFORM
+                </h2>
+
+                <p>
+                    Plataforma Inteligente de Análise Estatística
+                </p>
+
+            </div>
+
+
+            <span id="api-status">
+                Verificando API...
+            </span>
+
+
+        </header>
+
+
+
+        <section class="dashboard-grid">
+
+
+            <div class="card">
+
+                <h3>
+                    Status Plataforma
+                </h3>
+
+                <strong id="status">
+                    Carregando...
+                </strong>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <h3>
+                    Versão
+                </h3>
+
+                <strong id="version">
+                    --
+                </strong>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <h3>
+                    Tecnologia
+                </h3>
+
+                <strong>
+                    FastAPI + PostgreSQL
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+
+
+        <section class="panel">
+
+
+            <h2>
+                Bem-vindo à LOTERIAS MATRIX PLATFORM
+            </h2>
+
+
+            <p>
+                Sistema inteligente para análise estatística,
+                geração probabilística de jogos,
+                inteligência artificial e evolução SaaS.
+            </p>
+
+
+        </section>
+
+
+
+
+
+        <section class="panel generator-panel">
+
+
+            <h2>
+                🎯 Gerador Inteligente
+            </h2>
+
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>
+                        Escolha a Loteria
+                    </label>
+
+
+                    <select id="loteria">
+
+
+                        <option value="mega_sena">
+                            Mega-Sena
+                        </option>
+
+
+                        <option value="lotofacil">
+                            Lotofácil
+                        </option>
+
+
+                        <option value="quina">
+                            Quina
+                        </option>
+
+
+                        <option value="lotomania">
+                            Lotomania
+                        </option>
+
+
+                        <option value="timemania">
+                            Timemania
+                        </option>
+
+
+                        <option value="dia_de_sorte">
+                            Dia de Sorte
+                        </option>
+
+
+                        <option value="mais_milionaria">
+                            +Milionária
+                        </option>
+
+
+                        <option value="super_sete">
+                            Super Sete
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+
+
+                <div>
+
+                    <label>
+                        Quantidade de jogos
+                    </label>
+
+
+                    <select id="quantidade-jogos">
+
+
+                        <option value="1">
+                            1 jogo
+                        </option>
+
+
+                        <option value="5">
+                            5 jogos
+                        </option>
+
+
+                        <option value="10">
+                            10 jogos
+                        </option>
+
+
+                        <option value="20">
+                            20 jogos
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+            <button
+                type="button"
+                onclick="gerarJogos()">
+
+                🎯 Gerar Jogos
+
+            </button>
+
+
+
+
+
+            <div class="resultado">
+
+
+                <h3>
+                    Resultado da Análise
+                </h3>
+
+
+
+                <pre id="resultado-gerador">Nenhum jogo gerado ainda.</pre>
+
+
+            </div>
+
+
+
+        </section>
+
+
+
+
+    </main>
+
+
+</div>
+
+
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

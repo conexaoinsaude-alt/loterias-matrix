@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+
+numpy
+pandas
+scikit-learn
+
+openpyxl
+
+psycopg2-binary
+
+python-dotenv
+
+jinja2
+
+requests
