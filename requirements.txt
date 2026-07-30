@@ -16,3 +16,6 @@ jinja2
 
 requests
 sqlalchemy
+
+pydantic
+email-validator
