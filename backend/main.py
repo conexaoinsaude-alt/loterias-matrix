@@ -5,24 +5,31 @@ LOTERIAS MATRIX PLATFORM
 
 Backend Principal
 
-Versão: 1.5
+Versão: 1.6
 
 Responsabilidades:
 
-- Inicializar a API.
+- Inicializar API.
 - Configurar servidor FastAPI.
-- Registrar rotas da plataforma.
-- Disponibilizar endpoints principais.
+- Registrar rotas.
+- Servir interface frontend.
 """
+
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from backend.routers import system
 from backend.routers import users
 from backend.routers import generator
 from backend.routers import statistics
 from backend.routers import ai
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
 
 
 app = FastAPI(
@@ -51,55 +58,25 @@ app.add_middleware(
 )
 
 
-# Registro das rotas do sistema
+# Rotas da plataforma
 
 app.include_router(system.router)
 
-
-# Registro das rotas de usuários
-
 app.include_router(users.router)
-
-
-# Registro das rotas do gerador
 
 app.include_router(generator.router)
 
-
-# Registro das rotas de estatísticas
-
 app.include_router(statistics.router)
-
-
-# Registro das rotas de Inteligência Artificial
 
 app.include_router(ai.router)
 
 
-@app.get("/")
 
+# Interface Web
+
+@app.get("/")
 def home():
 
-    return {
+    index_file = FRONTEND_DIR / "index.html"
 
-        "platform": "LOTERIAS MATRIX PLATFORM",
-
-        "status": "ONLINE",
-
-        "version": "1.5.0",
-
-        "modules": [
-
-            "System",
-
-            "Users",
-
-            "Generator",
-
-            "Statistics",
-
-            "AI Loterias"
-
-        ]
-
-    }
+    return FileResponse(index_file)
