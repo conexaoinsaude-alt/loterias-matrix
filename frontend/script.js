@@ -28,12 +28,16 @@ async function carregarStatus() {
 
     try {
 
-        const response = await fetch(API_URL);
+        const response = await fetch(
+            `${API_URL}/system/`
+        );
 
 
         if (!response.ok) {
 
-            throw new Error();
+            throw new Error(
+                "Falha ao consultar sistema"
+            );
 
         }
 
@@ -41,16 +45,20 @@ async function carregarStatus() {
         const data = await response.json();
 
 
+
         document.getElementById("status").textContent =
             data.status;
+
 
 
         document.getElementById("version").textContent =
             data.version;
 
 
+
         document.getElementById("api-status").textContent =
             "🟢 API ONLINE";
+
 
 
     }
@@ -81,6 +89,7 @@ async function carregarStatus() {
 
 
 
+
 function inicializarMenu() {
 
 
@@ -101,6 +110,7 @@ function inicializarMenu() {
             });
 
 
+
             this.classList.add("active");
 
 
@@ -117,6 +127,7 @@ function inicializarMenu() {
 
 
 
+
 function restaurarConfiguracoes() {
 
 
@@ -124,8 +135,10 @@ function restaurarConfiguracoes() {
         localStorage.getItem("loteriaSelecionada");
 
 
+
     const quantidade =
         localStorage.getItem("quantidadeJogos");
+
 
 
 
@@ -140,6 +153,7 @@ function restaurarConfiguracoes() {
 
 
 
+
     if(quantidade) {
 
 
@@ -151,8 +165,12 @@ function restaurarConfiguracoes() {
 
 
 
+
+
+
     const resultadoSalvo =
         localStorage.getItem("ultimoResultado");
+
 
 
 
@@ -172,6 +190,8 @@ function restaurarConfiguracoes() {
 
 
 }
+
+
 
 
 
@@ -203,6 +223,7 @@ async function gerarJogos() {
 
 
 
+
     try {
 
 
@@ -230,15 +251,16 @@ async function gerarJogos() {
 
                 })
 
-
             }
 
         );
 
 
 
+
         const data =
             await response.json();
+
 
 
 
@@ -255,6 +277,7 @@ async function gerarJogos() {
 
 
         }
+
 
 
 
@@ -281,6 +304,8 @@ async function gerarJogos() {
 
 
 
+
+
         let texto = "";
 
 
@@ -300,10 +325,12 @@ async function gerarJogos() {
         + "\n";
 
 
+
         texto +=
         "Quantidade: "
         + quantidade
         + "\n\n";
+
 
 
 
@@ -335,6 +362,9 @@ async function gerarJogos() {
 
 
 
+
+
+
         ultimoResultado =
             texto;
 
@@ -351,8 +381,10 @@ async function gerarJogos() {
 
 
 
+
         resultado.textContent =
             texto;
+
 
 
 
@@ -371,6 +403,7 @@ async function gerarJogos() {
         "ERRO:\n\n"
         +
         error.message;
+
 
 
     }
