@@ -1,4 +1,9 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://127.0.0.1:8000"
+        : window.location.origin;
+
 
 
 let ultimoResultado = "";
@@ -14,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     restaurarConfiguracoes();
 
 });
+
+
 
 
 
@@ -48,7 +55,7 @@ async function carregarStatus() {
 
     }
 
-    catch {
+    catch(error) {
 
 
         document.getElementById("status").textContent =
@@ -61,6 +68,9 @@ async function carregarStatus() {
 
         document.getElementById("api-status").textContent =
             "🔴 API OFFLINE";
+
+
+        console.error(error);
 
 
     }
@@ -84,7 +94,9 @@ function inicializarMenu() {
             document.querySelectorAll(".sidebar li")
             .forEach(menu => {
 
+
                 menu.classList.remove("active");
+
 
             });
 
@@ -104,6 +116,7 @@ function inicializarMenu() {
 
 
 
+
 function restaurarConfiguracoes() {
 
 
@@ -116,7 +129,7 @@ function restaurarConfiguracoes() {
 
 
 
-    if (loteria) {
+    if(loteria) {
 
 
         document.getElementById("loteria").value =
@@ -127,7 +140,7 @@ function restaurarConfiguracoes() {
 
 
 
-    if (quantidade) {
+    if(quantidade) {
 
 
         document.getElementById("quantidade-jogos").value =
@@ -143,7 +156,7 @@ function restaurarConfiguracoes() {
 
 
 
-    if (resultadoSalvo) {
+    if(resultadoSalvo) {
 
 
         document.getElementById("resultado-gerador")
@@ -151,13 +164,15 @@ function restaurarConfiguracoes() {
             resultadoSalvo;
 
 
-        ultimoResultado = resultadoSalvo;
+        ultimoResultado =
+            resultadoSalvo;
 
 
     }
 
 
 }
+
 
 
 
@@ -171,39 +186,15 @@ async function gerarJogos() {
 
 
 
-    const selectLoteria =
-        document.getElementById("loteria");
-
-
-
-    const selectQuantidade =
-        document.getElementById("quantidade-jogos");
-
-
-
     const loteria =
-        selectLoteria.value;
+        document.getElementById("loteria").value;
 
 
 
     const quantidade =
         parseInt(
-            selectQuantidade.value
+            document.getElementById("quantidade-jogos").value
         );
-
-
-
-    localStorage.setItem(
-        "loteriaSelecionada",
-        loteria
-    );
-
-
-
-    localStorage.setItem(
-        "quantidadeJogos",
-        quantidade
-    );
 
 
 
@@ -215,30 +206,30 @@ async function gerarJogos() {
     try {
 
 
-
         const response = await fetch(
 
             `${API_URL}/generator/create`,
 
             {
 
-                method: "POST",
+                method:"POST",
 
 
-                headers: {
+                headers:{
 
-                    "Content-Type": "application/json"
+                    "Content-Type":"application/json"
 
                 },
 
 
-                body: JSON.stringify({
+                body:JSON.stringify({
 
-                    loteria: loteria,
+                    loteria:loteria,
 
-                    quantidade_jogos: quantidade
+                    quantidade_jogos:quantidade
 
                 })
+
 
             }
 
@@ -252,12 +243,14 @@ async function gerarJogos() {
 
 
 
-        if (!response.ok) {
+        if(!response.ok){
 
 
             throw new Error(
+
                 data.detail ||
-                "Erro ao gerar jogos."
+                "Erro no servidor"
+
             );
 
 
@@ -266,19 +259,24 @@ async function gerarJogos() {
 
 
 
-        if (
+
+        if(
+
             !data.resultado ||
-            !data.resultado.jogos ||
-            data.resultado.jogos.length === 0
-        ) {
+            !data.resultado.jogos
+
+        ){
 
 
             throw new Error(
-                "Nenhum jogo foi gerado pelo motor."
+
+                "Nenhum jogo retornado pela API"
+
             );
 
 
         }
+
 
 
 
@@ -288,42 +286,46 @@ async function gerarJogos() {
 
 
         texto +=
-            "🎯 LOTERIAS MATRIX PLATFORM\n";
+        "🎯 LOTERIAS MATRIX PLATFORM\n";
 
 
         texto +=
-            "====================================\n\n";
+        "============================\n\n";
 
-
-        texto +=
-            "Loteria: "
-            + data.loteria
-            + "\n";
 
 
         texto +=
-            "Quantidade: "
-            + quantidade
-            + "\n\n";
+        "Loteria: "
+        + data.loteria
+        + "\n";
+
+
+        texto +=
+        "Quantidade: "
+        + quantidade
+        + "\n\n";
+
 
 
 
 
         data.resultado.jogos.forEach(
 
-            (jogo, indice) => {
+            (jogo,index)=>{
 
 
                 texto +=
-                    `Jogo ${indice + 1}\n`;
+                "Jogo "
+                + (index + 1)
+                + "\n";
 
 
                 texto +=
-                    jogo.join(" - ");
+                jogo.join(" - ");
 
 
                 texto +=
-                    "\n\n";
+                "\n\n";
 
 
             }
@@ -333,7 +335,9 @@ async function gerarJogos() {
 
 
 
-        ultimoResultado = texto;
+        ultimoResultado =
+            texto;
+
 
 
 
@@ -348,24 +352,25 @@ async function gerarJogos() {
 
 
         resultado.textContent =
-            ultimoResultado;
+            texto;
 
 
 
     }
 
 
+    catch(error){
 
-    catch (erro) {
 
-
-        console.error(erro);
+        console.error(error);
 
 
 
         resultado.textContent =
-            "ERRO:\n\n"
-            + erro.message;
+
+        "ERRO:\n\n"
+        +
+        error.message;
 
 
     }
